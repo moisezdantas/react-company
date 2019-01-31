@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import {Route} from 'react'
+import {Route} from 'react-router-dom'
 
 import AdminMenu from './AdminMenu';
 import AdminPortFolio from './AdminPortFolio';
 
 class Admin extends Component {
-    constructor(props){
-        super(props);
-    }
+
+    
     render(){
         return (
             <div>
