@@ -10,6 +10,7 @@ import Precos from './componentes/Precos'
 import Contatos from './componentes/Contatos'
 //Area Admintrativa
 import Admin from './admin/Admin';
+import Login from './admin/Login';
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route path='/contato' component={Contatos}/>
 
           <Route path='/admin' component={Admin}/>
+          <Route path='/login' component={Login}/>
 
           <Rodape/>
         </div>

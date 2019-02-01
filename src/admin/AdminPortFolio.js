@@ -6,11 +6,22 @@ class AdminPortFolio extends Component {
     constructor(props){
         super(props)
 
+        this.state = {
+            estaGravando: false
+        }
+
         this.gravaPortfolio = this.gravaPortfolio.bind(this)
     }
 
     gravaPortfolio(e){
-        const arquivo = this.imagem.files[0]
+        const itemPortfolio = {
+            titulo: this.titulo.value,
+            descricao: this.descricao.value,
+            imagem: this.imagem
+        }
+
+        this.setState({estaGravando: true})
+        const arquivo = itemPortfolio.imagem.files[0]
         const {name, size , type} = arquivo
 
         const ref = storage.ref(name)
@@ -19,14 +30,15 @@ class AdminPortFolio extends Component {
             img.ref.getDownloadURL()
             .then(downloadURL => {
                 const novoPortifolio = {
-                    titulo: this.titulo.value,
-                    descricao: this.descricao.value,
+                    titulo: itemPortfolio.titulo,
+                    descricao: itemPortfolio.descricao,
                     imagem: downloadURL
                 }
                 console.log(novoPortifolio)
                 config.push('portfolio', {
                     data: novoPortifolio
                 })
+                this.setState({estaGravando: false})
             })
         })
 
@@ -34,9 +46,19 @@ class AdminPortFolio extends Component {
     }
 
     render(){
+        if(this.state.estaGravando){
+            return (
+                <div className="container">
+                     <p>
+                         <span className="glyphicon glyphicon-refresh" /> Aguarde ...
+                    </p>
+                </div>
+            )
+        }
+
         return (
             <div className="container">
-                <h2>PortFolio - Area Adminidtrativa</h2>
+                <h2>PortFolio - Área Adminidtrativa</h2>
                 <form onSubmit={this.gravaPortfolio}>
                     <div className="form-group">
                         <label htmlFor="titulo">Titulo</label>
